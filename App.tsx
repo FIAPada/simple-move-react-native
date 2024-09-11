@@ -1,55 +1,20 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Login from './Login';
-import Register from './Register';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Credentials from './Credentials';
 import Home from './Home';
 
+const Stack = createStackNavigator();
+
 const App = () => {
-  const [activeTab, setActiveTab] = useState('Login');
-
-  const renderComponent = () => {
-    switch (activeTab) {
-      case 'Login':
-        return <Login />;
-      case 'Register':
-        return <Register />;
-      case 'Home':
-        return <Home />;
-      default:
-        return null;
-    }
-  };
-
   return (
-    <View style={styles.page}>
-      <View style={styles.component}>{renderComponent()}</View>
-      <View style={styles.tab}>
-        <TouchableOpacity onPress={() => setActiveTab('Login')}>
-          <Text>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab('Register')}>
-          <Text>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab('Home')}>
-          <Text>Home</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Credentials">
+        <Stack.Screen name="Credentials" component={Credentials} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-  component: {
-    flex: 1,
-  },
-  tab: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-  },
-});
 
 export default App;

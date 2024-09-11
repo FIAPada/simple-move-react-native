@@ -3,7 +3,11 @@ import {View, TextInput, Button, StyleSheet} from 'react-native';
 
 import {getUserByEmail} from './api';
 
-const Login = () => {
+export interface ILoginProps {
+  onLogin: () => void;
+}
+
+const Login = (props: ILoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,6 +23,7 @@ const Login = () => {
       console.log('Invalid password');
     } else {
       console.log('Logged in successfully');
+      props.onLogin();
     }
   };
 
