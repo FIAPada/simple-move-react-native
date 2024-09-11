@@ -1,22 +1,34 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button, StyleSheet} from 'react-native';
 
+import {getUserByEmail} from './api';
+
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Perform login logic here
-    console.log('Logging in...');
+  const handleLogin = async () => {
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      console.log('User not found');
+      return;
+    }
+
+    if (user.password !== password) {
+      console.log('Invalid password');
+    } else {
+      console.log('Logged in successfully');
+    }
   };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}

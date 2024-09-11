@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Login from './Login';
 import Register from './Register';
 import Home from './Home';
@@ -21,14 +21,9 @@ const App = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
-      <View style={{flex: 1}}>{renderComponent()}</View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          paddingVertical: 10,
-        }}>
+    <View style={styles.page}>
+      <View style={styles.component}>{renderComponent()}</View>
+      <View style={styles.tab}>
         <TouchableOpacity onPress={() => setActiveTab('Login')}>
           <Text>Login</Text>
         </TouchableOpacity>
@@ -42,5 +37,19 @@ const App = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+  },
+  component: {
+    flex: 1,
+  },
+  tab: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+  },
+});
 
 export default App;
