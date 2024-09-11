@@ -1,17 +1,31 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button, StyleSheet} from 'react-native';
 
+import {register} from './api';
+
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
   const handleRegister = () => {
-    // Add your registration logic here
-    console.log('Registering...');
+    register(email, password, name)
+      .then(() => {
+        console.log('Registered successfully!');
+      })
+      .catch(error => {
+        console.error('Error registering:', error);
+      });
   };
 
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
